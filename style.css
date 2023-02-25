@@ -60,3 +60,7 @@ button {
   background-color: #4caf50;
   color: white;
 }
+
+button:hover {
+  background-color: #e5e5e5;
+}
