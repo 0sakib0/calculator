@@ -3,21 +3,13 @@
   height: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #ac2f2f;
+  background-color: #5c578d;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.screen {
-  margin-bottom: 15px;
-  background-color: white;
-  border-radius: 5px;
-  padding: 5px;
-  width: 275px;
-  height: 200px;
+  
 }
 
 .buttons {
@@ -40,6 +32,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 5px #3b3a3a;
 }
 
 .number {
@@ -47,7 +40,7 @@ button {
 }
 
 .operator {
-  background-color: #ff9800;
+  background-color: #181815;
   color: white;
 }
 
@@ -57,10 +50,50 @@ button {
 }
 
 .equal {
-  background-color: #4caf50;
+  background-color: #b3afca;
   color: white;
 }
 
-button:hover {
+.number:hover {
   background-color: #e5e5e5;
+}
+
+.operator:hover {
+  background-color: #4d4d4b;
+}
+
+.equal:hover {
+  background-color: #dedbec;
+}
+
+.clear:hover {
+  background-color: #f38780;
+}
+
+#result {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 70px;
+  width: 270px;
+  margin-bottom: 25px;
+  font-size: xx-large;
+
+}
+
+button:active {
+  box-shadow: 0 3px #3b3a3a;
+  transform: scaleZ(2);
+  
+}
+
+body {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+textarea:focus, input:focus{
+  outline: none;
 }
