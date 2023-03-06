@@ -7,8 +7,13 @@ let display = "";
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const buttonValue = button.value;
-        display += buttonValue;
-        result.value = display;
+        display
+        if (button.classList.contains('number')) {
+            display += buttonValue;
+            result.value = display;
+        } else {
+            
+        }
     });
 });
 

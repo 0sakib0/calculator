@@ -1,6 +1,6 @@
 .calculator {
   width: 300px;
-  height: 400px;
+  height: 450px;
   margin: 0 auto;
   padding: 20px;
   background-color: #5c578d;
@@ -45,8 +45,9 @@ button {
 }
 
 .clear {
-  background-color: #f44336;
+  background-color: #25a8c9;
   color: white;
+  width: 130px;
 }
 
 .equal {
@@ -67,23 +68,29 @@ button {
 }
 
 .clear:hover {
-  background-color: #f38780;
+  background-color: #61b9cf;
 }
 
 #result {
   display: flex;
   flex-direction: column-reverse;
-  height: 70px;
+  height: 90px;
   width: 270px;
-  margin-bottom: 25px;
-  font-size: xx-large;
+  margin-top: 10px;
+  margin-bottom: 18px;
+  font-size: 30px;
+  text-align: right;
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: 27px;
+  border-radius: 6px;
+  flex-wrap: wrap;
 
 }
 
 button:active {
   box-shadow: 0 3px #3b3a3a;
-  transform: scaleZ(2);
-  
+  transform:scale(0.98)  ;
 }
 
 body {
@@ -96,4 +103,14 @@ body {
 
 textarea:focus, input:focus{
   outline: none;
+}
+
+.all-clear {
+  width: 130px;
+  color: white;
+  background-color: #f44336;
+}
+
+.all-clear:hover {
+  background-color: #f38780;
 }
