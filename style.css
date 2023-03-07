@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
   
 }
 
@@ -99,6 +100,7 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  background-color: #d4cde0c5;
 }
 
 textarea:focus, input:focus{
@@ -114,3 +116,4 @@ textarea:focus, input:focus{
 .all-clear:hover {
   background-color: #f38780;
 }
+
