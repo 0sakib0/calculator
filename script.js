@@ -1,27 +1,41 @@
 console.log("mango");
 const buttonSound = document.getElementById('button-sound');
 const buttons = document.querySelectorAll("button");
-const result = document.getElementById("result");
+const screen = document.getElementById("screen");
+const decimal = document.getElementById("decimal");
 const acButton = document.querySelector(".all-clear");
-let display = "";
+let currentDisplay = "";
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         const buttonValue = button.value;
         buttonSound.currentTime = 0;
         buttonSound.play();
+        buttonSound.volume = 0.3; 
+        
+        if (currentDisplay.length > 10) {
+            currentDisplay = currentDisplay.substr(0, 10);
+          }
+
         if (button.classList.contains("number")) {
-            display += buttonValue;
-            result.value = display;
+            currentDisplay += buttonValue;
+            screen.value = currentDisplay;
 
         } else if (button.classList.contains("all-clear")) {
-            result.value = "";
-            display = "";
+            screen.value = "";
+            currentDisplay = "";
+
         } else if (button.classList.contains("clear")) {
-            display = display.slice(0, -1);
-            result.value = display;
+            currentDisplay = currentDisplay.slice(0, -1);
+            screen.value = currentDisplay;
+        } else if (button.classList.contains("operator")) {
+            currentDisplay += ` ${buttonValue} `;
+            screen.value = currentDisplay;
+        } else if (button.value == decimal.value) {
+            currentDisplay += buttonValue;
+            screen.value = currentDisplay;
         }
     });
 });
 
-console.log(acButton);
+
