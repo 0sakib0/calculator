@@ -1,6 +1,8 @@
 const buttonSound = document.getElementById("button-sound");
 const buttons = document.querySelectorAll("button");
-const screen = document.getElementById("screen");
+const screen = document.querySelector(".screen")
+const currentScreen = document.getElementById("screen-current");
+const previousScreen = document.getElementById("screen-previous")
 const decimal = document.getElementById("decimal");
 const acButton = document.querySelector(".all-clear");
 const equalButton = document.querySelector(".equal")
@@ -14,11 +16,12 @@ const playSound = () => {
   buttonSound.volume = 0.3;
 };
 
-const updateDisplay = (value) => {
-  if (value.length > 10) {
-    value = value.substring(0, 10);
-  }
-  screen.value = value;
+const updateDisplay = (currentValue, previousValue) => {
+  if (currentValue.length > 10) {
+    currentValue = currentValue.substring(0, 10);
+  } 
+  currentScreen.textContent = currentValue;
+  previousScreen.textContent = previousValue;
 };
 
 buttons.forEach((button) => {
@@ -43,21 +46,24 @@ buttons.forEach((button) => {
         break;
 
       case button.classList.contains("operator"):
-        previousDisplayValue = currentDisplayValue;
-        operatorValue = buttonValue;
-        currentDisplayValue = `${currentDisplayValue} ${buttonValue} `;
-        updateDisplay(currentDisplayValue);
-        operate(previousDisplayValue,operatorValue);
+       currentDisplayValue = `${currentDisplayValue} ${buttonValue} `
+       previousDisplayValue = currentDisplayValue;
+       currentDisplayValue = "";
+       updateDisplay(currentDisplayValue,previousDisplayValue);
+        break;
+
+      case button.classList.contains("decimal"):
+        if (!currentDisplayValue.includes(".")) {
+          currentDisplayValue += ".";
+          updateDisplay(currentDisplayValue);
+        }
         break;
     }
   });
 });
 
 
-const operate = (num1,num2,operator) => {
-  previousDisplayValue = num1;
-  operatorValue = num2;
-  console.log(previousDisplayValue);
-  console.log(operatorValue);
+const operate = (num1, num2, operator) => {
+ 
 }
 
