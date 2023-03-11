@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 .calculator {
   width: 300px;
   height: 450px;
@@ -34,6 +36,7 @@ button {
   justify-content: center;
   align-items: center;
   box-shadow: 0 5px #3b3a3a;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .number {
@@ -86,8 +89,7 @@ button {
   padding-top: 27px;
   border-radius: 6px;
   flex-wrap: wrap;
-  background-color: #ffffff;
-  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
 
 }
 

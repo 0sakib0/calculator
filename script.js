@@ -1,41 +1,63 @@
-console.log("mango");
-const buttonSound = document.getElementById('button-sound');
+const buttonSound = document.getElementById("button-sound");
 const buttons = document.querySelectorAll("button");
 const screen = document.getElementById("screen");
 const decimal = document.getElementById("decimal");
 const acButton = document.querySelector(".all-clear");
-let currentDisplay = "";
+const equalButton = document.querySelector(".equal")
+let currentDisplayValue = "";
+let previousDisplayValue = "";
+let operatorValue = "";
+
+const playSound = () => {
+  buttonSound.currentTime = 0;
+  buttonSound.play();
+  buttonSound.volume = 0.3;
+};
+
+const updateDisplay = (value) => {
+  if (value.length > 10) {
+    value = value.substring(0, 10);
+  }
+  screen.value = value;
+};
 
 buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-        const buttonValue = button.value;
-        buttonSound.currentTime = 0;
-        buttonSound.play();
-        buttonSound.volume = 0.3; 
-        
-        if (currentDisplay.length > 10) {
-            currentDisplay = currentDisplay.substr(0, 10);
-          }
+  button.addEventListener("click", () => {
+    const buttonValue = button.value;
+    playSound();
 
-        if (button.classList.contains("number")) {
-            currentDisplay += buttonValue;
-            screen.value = currentDisplay;
+    switch (true) {
+      case button.classList.contains("number"):
+        currentDisplayValue += buttonValue;
+        updateDisplay(currentDisplayValue);
+        break;
 
-        } else if (button.classList.contains("all-clear")) {
-            screen.value = "";
-            currentDisplay = "";
+      case button.classList.contains("all-clear"):
+        currentDisplayValue = "";
+        updateDisplay(currentDisplayValue);
+        break;
 
-        } else if (button.classList.contains("clear")) {
-            currentDisplay = currentDisplay.slice(0, -1);
-            screen.value = currentDisplay;
-        } else if (button.classList.contains("operator")) {
-            currentDisplay += ` ${buttonValue} `;
-            screen.value = currentDisplay;
-        } else if (button.value == decimal.value) {
-            currentDisplay += buttonValue;
-            screen.value = currentDisplay;
-        }
-    });
+      case button.classList.contains("clear"):
+        currentDisplayValue = currentDisplayValue.slice(0, -1);
+        updateDisplay(currentDisplayValue);
+        break;
+
+      case button.classList.contains("operator"):
+        previousDisplayValue = currentDisplayValue;
+        operatorValue = buttonValue;
+        currentDisplayValue = `${currentDisplayValue} ${buttonValue} `;
+        updateDisplay(currentDisplayValue);
+        operate(previousDisplayValue,operatorValue);
+        break;
+    }
+  });
 });
 
+
+const operate = (num1,num2,operator) => {
+  previousDisplayValue = num1;
+  operatorValue = num2;
+  console.log(previousDisplayValue);
+  console.log(operatorValue);
+}
 
