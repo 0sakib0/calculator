@@ -10,11 +10,6 @@ let currentDisplayValue = "";
 let previousDisplayValue = "";
 let operatorValue = "";
 
-const playSound = () => {
-  buttonSound.volume = 0.2;
-  buttonSound.currentTime = 0;
-  buttonSound.play();
-};
 
 const updateDisplay = () => {
   if (currentDisplayValue.length > 10) {
