@@ -35,7 +35,6 @@ const calculateResult = () => {
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     const buttonValue = button.textContent;
-    playSound();
 
     switch (true) {
       case button.classList.contains("number"):
