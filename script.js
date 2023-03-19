@@ -1,69 +1,108 @@
 const buttonSound = document.getElementById("button-sound");
 const buttons = document.querySelectorAll("button");
-const screen = document.querySelector(".screen")
+const screen = document.querySelector(".screen");
 const currentScreen = document.getElementById("screen-current");
-const previousScreen = document.getElementById("screen-previous")
+const previousScreen = document.getElementById("screen-previous");
 const decimal = document.getElementById("decimal");
 const acButton = document.querySelector(".all-clear");
-const equalButton = document.querySelector(".equal")
+const equalButton = document.querySelector(".equal");
 let currentDisplayValue = "";
 let previousDisplayValue = "";
 let operatorValue = "";
 
 const playSound = () => {
+  buttonSound.volume = 0.2;
   buttonSound.currentTime = 0;
   buttonSound.play();
-  buttonSound.volume = 0.3;
 };
 
-const updateDisplay = (currentValue, previousValue) => {
-  if (currentValue.length > 10) {
-    currentValue = currentValue.substring(0, 10);
+const updateDisplay = () => {
+  if (currentDisplayValue.length > 10) {
+    currentDisplayValue = currentDisplayValue.substring(0, 10);
   } 
-  currentScreen.textContent = currentValue;
-  previousScreen.textContent = previousValue;
+  if (previousDisplayValue.length > 10) {
+    previousDisplayValue = previousDisplayValue.substring(0, 10);
+  }
+  currentScreen.textContent = currentDisplayValue;
+  previousScreen.textContent = previousDisplayValue;
+};
+
+const calculateResult = () => {
+  if (operatorValue !== "" && previousDisplayValue !== "" && currentDisplayValue !== "") {
+    const result = operate(parseFloat(previousDisplayValue), parseFloat(currentDisplayValue), operatorValue);
+    currentDisplayValue = result.toString();
+    previousDisplayValue = "";
+    operatorValue = "=";
+    updateDisplay();
+  }
 };
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
-    const buttonValue = button.value;
+    const buttonValue = button.textContent;
     playSound();
 
     switch (true) {
       case button.classList.contains("number"):
+        if (operatorValue === "=") {
+          previousDisplayValue = "";
+          operatorValue = "";
+        }
         currentDisplayValue += buttonValue;
-        updateDisplay(currentDisplayValue);
+        updateDisplay();
         break;
 
       case button.classList.contains("all-clear"):
         currentDisplayValue = "";
-        updateDisplay(currentDisplayValue);
+        previousDisplayValue = "";
+        operatorValue = "";
+        updateDisplay();
         break;
 
       case button.classList.contains("clear"):
         currentDisplayValue = currentDisplayValue.slice(0, -1);
-        updateDisplay(currentDisplayValue);
+        updateDisplay();
         break;
 
       case button.classList.contains("operator"):
-       currentDisplayValue = `${currentDisplayValue} ${buttonValue} `
-       previousDisplayValue = currentDisplayValue;
-       currentDisplayValue = "";
-       updateDisplay(currentDisplayValue,previousDisplayValue);
+        if (operatorValue !== "") {
+          calculateResult();
+        } 
+        operatorValue = buttonValue;
+        previousDisplayValue = currentDisplayValue + " " + operatorValue;
+        currentDisplayValue = "";
+        updateDisplay();
         break;
 
       case button.classList.contains("decimal"):
         if (!currentDisplayValue.includes(".")) {
           currentDisplayValue += ".";
-          updateDisplay(currentDisplayValue);
+          updateDisplay();
         }
+        break;
+
+      case button.classList.contains("equal"):
+        calculateResult();
         break;
     }
   });
 });
 
-
 const operate = (num1, num2, operator) => {
- 
-}
-
+  switch (operator) {
+    case "+":
+      return num1 + num2;
+    case "-":
+      return num1 - num2;
+    case "*":
+      return num1 * num2;
+    case "/":
+      if (num2 === 0) {
+        return "error";
+      } else {
+        return num1 / num2;
+      }
+      break;
+  }
+  return parseFloat(result.toFixed(1));
+};
